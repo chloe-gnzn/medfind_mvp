@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Review verification{% endblock %}
+{% block content %}
+<h1 class="page-title">Review: {{ v.pharmacy.business_name }}</h1>
+<div class="panel">
+    <table class="data">
+        <tr><td class="muted">Email</td><td>{{ v.pharmacy.email }}</td></tr>
+        <tr><td class="muted">Contact</td><td>{{ v.pharmacy.contact_number }}</td></tr>
+        <tr><td class="muted">Address</td><td>{{ v.pharmacy.address }}</td></tr>
+        <tr><td class="muted">Document</td><td><a href="{{ v.document_url }}" target="_blank">Open submitted file</a></td></tr>
+        <tr><td class="muted">Status</td><td><span class="badge {{ v.status }}">{{ v.get_status_display }}</span></td></tr>
+        {% if v.reviewed_at %}
+        <tr><td class="muted">Reviewed</td><td>{{ v.reviewed_at|date:"M d, Y g:i A" }} by {{ v.reviewed_by.first_name }}</td></tr>
+        <tr><td class="muted">Remarks</td><td>{{ v.remarks|default:"—" }}</td></tr>
+        {% endif %}
+    </table>
+</div>
+
+{% if v.status == 'pending' %}
+<div class="panel narrow">
+    <h2>Decision</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="remarks">Remarks (required if rejecting)</label>
+            <textarea id="remarks" name="remarks" rows="3" class="form-input"></textarea>
+        </div>
+        <div class="actions">
+            <button type="submit" name="decision" value="approved" class="btn">Approve</button>
+            <button type="submit" name="decision" value="rejected" class="btn danger">Reject</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+<a class="btn secondary" href="{% url 'admin_verifications' %}">← Back</a>
+{% endblock %}

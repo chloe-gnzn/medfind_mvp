@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MedFind | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="app-body">
+    <header class="navbar">
+        {% if current_role == 'user' %}
+            <a class="nav-logo" href="{% url 'home' %}">MedFind</a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'search' %}">Search</a>
+                <a href="{% url 'favorites' %}">Favorites</a>
+                <a href="{% url 'history' %}">History</a>
+            </nav>
+        {% elif current_role == 'pharmacy' %}
+            <a class="nav-logo" href="{% url 'pharmacy_dashboard' %}">MedFind</a>
+            <nav class="nav-links">
+                <a href="{% url 'pharmacy_dashboard' %}">Dashboard</a>
+                <a href="{% url 'pharmacy_inventory' %}">Inventory</a>
+                <a href="{% url 'pharmacy_hours' %}">Operating hours</a>
+                <a href="{% url 'pharmacy_verification' %}">Verification</a>
+            </nav>
+        {% elif current_role == 'admin' %}
+            <a class="nav-logo" href="{% url 'admin_dashboard' %}">MedFind</a>
+            <nav class="nav-links">
+                <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+                <a href="{% url 'admin_verifications' %}">Verifications</a>
+                <a href="{% url 'admin_pharmacies' %}">Pharmacies</a>
+                <a href="{% url 'admin_users' %}">Users</a>
+                <a href="{% url 'admin_categories' %}">Categories</a>
+                <a href="{% url 'admin_medicines' %}">Medicines</a>
+                <a href="{% url 'admin_activity' %}">Activity log</a>
+            </nav>
+        {% endif %}
+        <div class="nav-user">
+            <span>{{ current_account.display_name }}</span>
+            <span class="role-badge">{{ current_role }}</span>
+            <a href="{% url 'logout' %}" class="btn-logout">Log Out</a>
+        </div>
+    </header>
+
+    <main class="container">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

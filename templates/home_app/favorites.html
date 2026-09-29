@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Favorites{% endblock %}
+{% block content %}
+<h1 class="page-title">Your favorites</h1>
+<p class="page-sub">Medicines and pharmacies you saved.</p>
+
+<div class="panel">
+    <h2>Medicines</h2>
+    {% for f in medicine_favs %}
+    <div class="list-item">
+        <div>
+            <a class="title" href="{% url 'medicine_detail' f.medicine.medicine_id %}">{{ f.medicine.medicine_name }}</a>
+            <div class="muted">{{ f.medicine.generic_name }} · {{ f.medicine.strength }} {{ f.medicine.form }}</div>
+        </div>
+        <form method="post" action="{% url 'toggle_favorite' 'medicine' f.medicine.medicine_id %}" class="inline">
+            {% csrf_token %}<button class="btn danger small">Remove</button>
+        </form>
+    </div>
+    {% empty %}<div class="empty">No favorite medicines yet.</div>{% endfor %}
+</div>
+
+<div class="panel">
+    <h2>Pharmacies</h2>
+    {% for f in pharmacy_favs %}
+    <div class="list-item">
+        <div>
+            <a class="title" href="{% url 'pharmacy_detail' f.pharmacy.pharmacy_id %}">{{ f.pharmacy.business_name }}</a>
+            <div class="muted">{{ f.pharmacy.address }}</div>
+        </div>
+        <form method="post" action="{% url 'toggle_favorite' 'pharmacy' f.pharmacy.pharmacy_id %}" class="inline">
+            {% csrf_token %}<button class="btn danger small">Remove</button>
+        </form>
+    </div>
+    {% empty %}<div class="empty">No favorite pharmacies yet.</div>{% endfor %}
+</div>
+{% endblock %}

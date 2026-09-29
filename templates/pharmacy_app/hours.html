@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Operating hours{% endblock %}
+{% block content %}
+<h1 class="page-title">Operating hours</h1>
+<p class="page-sub">Customers see whether you're open based on these hours.</p>
+<div class="panel">
+    <form method="post">
+        {% csrf_token %}
+        <table class="data hours-table">
+            <tr><th>Day</th><th>Opens</th><th>Closes</th><th>Closed all day</th></tr>
+            {% for r in rows %}
+            <tr>
+                <td><strong>{{ r.label }}</strong></td>
+                <td><input type="time" name="open_{{ r.day }}" value="{{ r.opening|time:'H:i' }}"></td>
+                <td><input type="time" name="close_{{ r.day }}" value="{{ r.closing|time:'H:i' }}"></td>
+                <td><input type="checkbox" name="closed_{{ r.day }}" {% if r.is_closed %}checked{% endif %}></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div style="margin-top:16px"><button type="submit" class="btn">Save hours</button></div>
+    </form>
+</div>
+{% endblock %}

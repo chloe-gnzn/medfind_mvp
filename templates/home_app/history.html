@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Search history{% endblock %}
+{% block content %}
+<div class="row-between">
+    <div><h1 class="page-title">Search history</h1><p class="page-sub">Your latest searches.</p></div>
+    {% if searches %}
+    <form method="post" action="{% url 'clear_history' %}">{% csrf_token %}<button class="btn danger">Clear history</button></form>
+    {% endif %}
+</div>
+<div class="panel">
+    {% for s in searches %}
+    <div class="list-item">
+        <a class="title" href="{% url 'search' %}?q={{ s.search_term|urlencode }}">{{ s.search_term }}</a>
+        <span class="muted">{{ s.searched_at|date:"M d, Y g:i A" }}</span>
+    </div>
+    {% empty %}<div class="empty">No searches yet. Try searching for a medicine!</div>{% endfor %}
+</div>
+{% endblock %}

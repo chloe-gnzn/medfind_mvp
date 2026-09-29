@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{ medicine.medicine_name }}{% endblock %}
+{% block content %}
+<div class="panel">
+    <div class="row-between">
+        <div>
+            <h1 class="page-title">{{ medicine.medicine_name }}</h1>
+            <p class="page-sub" style="margin-bottom:0">{{ medicine.generic_name }} · {{ medicine.strength }} {{ medicine.form }}</p>
+        </div>
+        <form method="post" action="{% url 'toggle_favorite' 'medicine' medicine.medicine_id %}" class="inline">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button type="submit" class="btn {% if is_favorite %}danger{% else %}secondary{% endif %}">
+                {% if is_favorite %}♥ Remove favorite{% else %}♡ Add to favorites{% endif %}
+            </button>
+        </form>
+    </div>
+    <p><span class="chip">{{ medicine.category.category_name }}</span></p>
+    {% if medicine.description %}<p>{{ medicine.description }}</p>{% endif %}
+</div>
+
+<div class="panel">
+    <h2>Where to find it</h2>
+    {% if listings %}
+    <div class="table-wrap">
+    <table class="data">
+        <tr><th>Pharmacy</th><th>Price</th><th>Availability</th><th>Today</th><th></th></tr>
+        {% for l in listings %}
+        <tr>
+            <td><a class="title" href="{% url 'pharmacy_detail' l.pharmacy.pharmacy_id %}">{{ l.pharmacy.business_name }}</a>
+                <div class="muted">{{ l.pharmacy.address }}</div></td>
+            <td>₱{{ l.price|floatformat:2 }}</td>
+            <td><span class="badge {{ l.availability_status }}">{{ l.get_availability_status_display }}</span>
+                <div class="muted">{{ l.stock_quantity }} in stock</div></td>
+            <td>{% if l.open_now is None %}<span class="muted">Hours not set</span>
+                {% elif l.open_now %}<span class="badge green">Open now</span>
+                {% else %}<span class="badge red">Closed</span>{% endif %}</td>
+            <td class="muted">{{ l.pharmacy.contact_number }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% else %}
+        <div class="empty">No verified pharmacy lists this medicine yet.</div>
+    {% endif %}
+</div>
+<a href="{% url 'search' %}" class="btn secondary">← Back to search</a>
+{% endblock %}

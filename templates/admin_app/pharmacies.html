@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Pharmacies{% endblock %}
+{% block content %}
+<h1 class="page-title">Pharmacies</h1>
+<p class="page-sub">All registered pharmacies.</p>
+<div class="panel">
+    {% if pharmacies %}
+    <div class="table-wrap">
+    <table class="data">
+        <tr><th>Pharmacy</th><th>Contact</th><th>Verification</th><th>Active</th><th>Registered</th><th></th></tr>
+        {% for p in pharmacies %}
+        <tr>
+            <td><strong>{{ p.business_name }}</strong><div class="muted">{{ p.email }}</div></td>
+            <td>{{ p.contact_number }}<div class="muted">{{ p.address }}</div></td>
+            <td><span class="badge {{ p.verification_status }}">{{ p.get_verification_status_display }}</span></td>
+            <td>{% if p.is_active %}<span class="badge green">Active</span>{% else %}<span class="badge red">Deactivated</span>{% endif %}</td>
+            <td class="muted">{{ p.created_at|date:"M d, Y" }}</td>
+            <td><form method="post" action="{% url 'admin_pharmacy_toggle' p.pharmacy_id %}" class="inline">
+                {% csrf_token %}<button class="btn small {% if p.is_active %}danger{% else %}secondary{% endif %}">{% if p.is_active %}Deactivate{% else %}Activate{% endif %}</button></form></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% else %}<div class="empty">No pharmacies yet.</div>{% endif %}
+</div>
+{% endblock %}

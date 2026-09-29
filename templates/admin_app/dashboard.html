@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Admin dashboard{% endblock %}
+{% block content %}
+<h1 class="page-title">Admin dashboard</h1>
+<p class="page-sub">Overview of MedFind.</p>
+
+<div class="grid">
+    <a class="stat" href="{% url 'admin_verifications' %}"><div class="num">{{ pending_count }}</div><div class="lbl">Pending verifications</div></a>
+    <a class="stat" href="{% url 'admin_pharmacies' %}"><div class="num">{{ pharmacy_count }}</div><div class="lbl">Pharmacies</div></a>
+    <a class="stat" href="{% url 'admin_users' %}"><div class="num">{{ user_count }}</div><div class="lbl">Users</div></a>
+    <a class="stat" href="{% url 'admin_medicines' %}"><div class="num">{{ medicine_count }}</div><div class="lbl">Medicines</div></a>
+    <a class="stat" href="{% url 'admin_categories' %}"><div class="num">{{ category_count }}</div><div class="lbl">Categories</div></a>
+</div>
+
+<div class="panel">
+    <div class="row-between"><h2>Recent activity</h2><a href="{% url 'admin_activity' %}" class="muted">See all</a></div>
+    {% include 'admin_app/_log_table.html' with logs=recent_logs %}
+</div>
+{% endblock %}

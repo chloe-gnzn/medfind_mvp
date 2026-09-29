@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Verification{% endblock %}
+{% block content %}
+<h1 class="page-title">Pharmacy verification</h1>
+<p class="page-sub">Customers only see verified pharmacies. Upload your business permit or pharmacy license for an admin to review.</p>
+
+<div class="banner {{ pharmacy.verification_status }}">
+    Current status: <strong>{{ pharmacy.get_verification_status_display }}</strong>
+</div>
+
+{% if has_pending %}
+    <div class="panel"><div class="empty">You have a submission waiting for review. You'll be able to submit again if it is rejected.</div></div>
+{% elif pharmacy.verification_status != 'approved' %}
+<div class="panel narrow">
+    <h2>Submit a document</h2>
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.document.id_for_label }}">{{ form.document.label }}</label>
+            {{ form.document }}
+            {% if form.document.errors %}<ul class="errorlist">{% for e in form.document.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        <button type="submit" class="btn">Submit for review</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="panel">
+    <h2>Submission history</h2>
+    {% if submissions %}
+    <table class="data">
+        <tr><th>#</th><th>Document</th><th>Status</th><th>Reviewed</th><th>Remarks</th></tr>
+        {% for s in submissions %}
+        <tr>
+            <td>{{ s.verification_id }}</td>
+            <td><a href="{{ s.document_url }}" target="_blank">View file</a></td>
+            <td><span class="badge {{ s.status }}">{{ s.get_status_display }}</span></td>
+            <td class="muted">{% if s.reviewed_at %}{{ s.reviewed_at|date:"M d, Y" }} by {{ s.reviewed_by.first_name|default:"admin" }}{% else %}—{% endif %}</td>
+            <td>{{ s.remarks|default:"—" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}<div class="empty">Nothing submitted yet.</div>{% endif %}
+</div>
+{% endblock %}

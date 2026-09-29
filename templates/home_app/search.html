@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h1 class="page-title">Search</h1>
+<p class="page-sub">Look up a medicine by brand or generic name, or find a pharmacy.</p>
+
+<div class="panel">
+    <form method="get" class="search-bar">
+        <input type="text" name="q" value="{{ q }}" placeholder="e.g. paracetamol, Biogesic, Colon Health">
+        <select name="category" class="form-input">
+            <option value="">All categories</option>
+            {% for c in categories %}
+                <option value="{{ c.category_id }}" {% if category_id == c.category_id|stringformat:"s" %}selected{% endif %}>{{ c.category_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+<div class="panel">
+    <h2>Medicines ({{ medicines|length }})</h2>
+    {% for m in medicines %}
+    <div class="list-item">
+        <div>
+            <a class="title" href="{% url 'medicine_detail' m.medicine_id %}">{{ m.medicine_name }}</a>
+            <div class="muted">{{ m.generic_name }} · {{ m.strength }} {{ m.form }} · {{ m.category.category_name }}</div>
+        </div>
+        <span class="badge {% if m.pharmacy_count %}available{% else %}out_of_stock{% endif %}">
+            {% if m.pharmacy_count %}In stock at {{ m.pharmacy_count }} pharmac{{ m.pharmacy_count|pluralize:"y,ies" }}{% else %}Not in stock nearby{% endif %}
+        </span>
+    </div>
+    {% empty %}
+        <div class="empty">No medicines matched your search.</div>
+    {% endfor %}
+</div>
+
+{% if q %}
+<div class="panel">
+    <h2>Pharmacies ({{ pharmacies|length }})</h2>
+    {% for p in pharmacies %}
+    <div class="list-item">
+        <div>
+            <a class="title" href="{% url 'pharmacy_detail' p.pharmacy_id %}">{{ p.business_name }}</a>
+            <div class="muted">{{ p.address }} · {{ p.contact_number }}</div>
+        </div>
+    </div>
+    {% empty %}
+        <div class="empty">No pharmacies matched your search.</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

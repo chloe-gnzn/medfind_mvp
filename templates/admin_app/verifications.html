@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Verifications{% endblock %}
+{% block content %}
+<h1 class="page-title">Pharmacy verifications</h1>
+<p class="page-sub">Review the documents pharmacies submitted.</p>
+<div class="chips" style="margin-bottom:18px">
+    <a class="chip" href="?status=pending">Pending</a>
+    <a class="chip" href="?status=approved">Approved</a>
+    <a class="chip" href="?status=rejected">Rejected</a>
+    <a class="chip" href="?status=all">All</a>
+</div>
+<div class="panel">
+    {% if rows %}
+    <div class="table-wrap">
+    <table class="data">
+        <tr><th>#</th><th>Pharmacy</th><th>Status</th><th>Reviewed by</th><th></th></tr>
+        {% for v in rows %}
+        <tr>
+            <td>{{ v.verification_id }}</td>
+            <td><strong>{{ v.pharmacy.business_name }}</strong><div class="muted">{{ v.pharmacy.email }}</div></td>
+            <td><span class="badge {{ v.status }}">{{ v.get_status_display }}</span></td>
+            <td class="muted">{% if v.reviewed_by %}{{ v.reviewed_by.first_name }} · {{ v.reviewed_at|date:"M d, Y" }}{% else %}—{% endif %}</td>
+            <td><a class="btn small {% if v.status == 'pending' %}{% else %}secondary{% endif %}" href="{% url 'admin_verification_review' v.verification_id %}">{% if v.status == 'pending' %}Review{% else %}View{% endif %}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% else %}<div class="empty">Nothing here.</div>{% endif %}
+</div>
+{% endblock %}

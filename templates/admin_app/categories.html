@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<div class="row-between">
+    <div><h1 class="page-title">Medicine categories</h1><p class="page-sub">Group medicines so users can browse.</p></div>
+    <a class="btn" href="{% url 'admin_category_add' %}">+ Add category</a>
+</div>
+<div class="panel">
+    {% if categories %}
+    <table class="data">
+        <tr><th>Name</th><th>Description</th><th>Medicines</th><th></th></tr>
+        {% for c in categories %}
+        <tr>
+            <td><strong>{{ c.category_name }}</strong></td>
+            <td class="muted">{{ c.description|default:"—" }}</td>
+            <td>{{ c.med_count }}</td>
+            <td><div class="actions">
+                <a class="btn secondary small" href="{% url 'admin_category_edit' c.category_id %}">Edit</a>
+                <a class="btn danger small" href="{% url 'admin_category_delete' c.category_id %}">Delete</a>
+            </div></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}<div class="empty">No categories yet. Add one before adding medicines.</div>{% endif %}
+</div>
+{% endblock %}

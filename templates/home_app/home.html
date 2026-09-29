@@ -1,29 +1,45 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MedFind | Home</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <div class="card home-wrapper">
-        <div class="brand">
-            <div class="logo">MedFind</div>
-        </div>
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 class="page-title">Hi, {{ current_account.first_name }} 👋</h1>
+<p class="page-sub">Find your medicine. Find it fast.</p>
 
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+<div class="panel">
+    <form method="get" action="{% url 'search' %}" class="search-bar">
+        <input type="text" name="q" placeholder="Search a medicine (brand or generic) or a pharmacy" autofocus>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
 
-        <h1>HOME SCREEN</h1>
-        <p>Welcome, {{ user.username }}! You're logged in.</p>
+<div class="grid">
+    <div class="stat"><div class="num">{{ medicine_count }}</div><div class="lbl">Medicines listed</div></div>
+    <div class="stat"><div class="num">{{ pharmacy_count }}</div><div class="lbl">Verified pharmacies</div></div>
+    <a class="stat" href="{% url 'favorites' %}"><div class="num">{{ favorite_count }}</div><div class="lbl">Your favorites</div></a>
+</div>
 
-        <a href="{% url 'logout' %}" class="btn-logout">Log Out</a>
+<div class="panel">
+    <h2>Browse by category</h2>
+    {% if categories %}
+    <div class="chips">
+        {% for c in categories %}
+            <a class="chip" href="{% url 'search' %}?category={{ c.category_id }}">{{ c.category_name }}<span class="count">{{ c.med_count }}</span></a>
+        {% endfor %}
     </div>
-</body>
-</html>
+    {% else %}
+        <div class="empty">No categories yet.</div>
+    {% endif %}
+</div>
+
+<div class="panel">
+    <div class="row-between"><h2>Recent searches</h2><a href="{% url 'history' %}" class="muted">See all</a></div>
+    {% if recent_searches %}
+    <div class="chips">
+        {% for s in recent_searches %}
+            <a class="chip" href="{% url 'search' %}?q={{ s.search_term|urlencode }}">{{ s.search_term }}</a>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="empty">Your searches will show up here.</div>
+    {% endif %}
+</div>
+{% endblock %}

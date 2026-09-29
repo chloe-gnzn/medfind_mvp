@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1 class="page-title">{{ title }}</h1>
+<div class="panel narrow">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}<ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        <div class="actions" style="margin-top:8px">
+            <button type="submit" class="btn">Save</button>
+            <a class="btn secondary" href="{% url back_url %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
