@@ -40,7 +40,7 @@
         <div class="nav-user">
             <span>{{ current_account.display_name }}</span>
             <span class="role-badge">{{ current_role }}</span>
-            <a href="{% url 'logout' %}" class="btn-logout">Log Out</a>
+            <a href="{% if current_role == 'pharmacy' %}{% url 'pharmacy_logout' %}{% elif current_role == 'admin' %}{% url 'admin_logout' %}{% else %}{% url 'logout' %}{% endif %}" class="btn-logout">Log Out</a>
         </div>
     </header>
 

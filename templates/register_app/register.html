@@ -16,13 +16,13 @@
 
         <h1 class="form-title">{{ title }}</h1>
 
-        <div class="role-switch">
+        <!-- <div class="role-switch">
             {% if kind == 'user' %}
                 Own a pharmacy? <a href="{% url 'register_pharmacy' %}">Register a pharmacy instead</a>
             {% else %}
                 Just looking for medicine? <a href="{% url 'register' %}">Register as a user instead</a>
             {% endif %}
-        </div>
+        </div> -->
 
         {% if messages %}
         <ul class="messages">
@@ -60,7 +60,7 @@
         </form>
 
         <div class="switch-link">
-            Already have an account? <a href="{% url 'login' %}">Log in here</a>
+            Already have an account? <a href="{% if kind == 'pharmacy' %}{% url 'pharmacy_login' %}{% else %}{% url 'login' %}{% endif %}">Log in here</a>
         </div>
     </div>
 </body>

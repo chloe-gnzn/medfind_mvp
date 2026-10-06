@@ -1,7 +1,11 @@
 from django.urls import path
+from login_app import views as login_views
 from . import views
 
 urlpatterns = [
+    path('login/', login_views.admin_login_view, name='admin_login'),
+    path('logout/', login_views.logout_view, name='admin_logout'),
+
     path('', views.dashboard_view, name='admin_dashboard'),
 
     path('verifications/', views.verifications_view, name='admin_verifications'),

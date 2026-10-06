@@ -43,10 +43,9 @@ def register_pharmacy_view(request):
                          f'Pharmacy {pharmacy.business_name} registered.')
             messages.success(
                 request,
-                'Pharmacy registered! Log in as "Pharmacy" and submit your '
-                'documents so an admin can verify you.'
+                'Pharmacy registered! Log in and submit your documents so an admin can verify you.'
             )
-            return redirect('login')
+            return redirect('pharmacy_login')
         messages.error(request, 'Please fix the errors below and try again.')
     else:
         form = PharmacyRegisterForm()

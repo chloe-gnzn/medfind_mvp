@@ -6,18 +6,6 @@ from medfind_project.session_auth import get_account_model
 class LoginForm(forms.Form):
     """Email + password login for any of the three ERD account types."""
 
-    ROLE_CHOICES = [
-        ('user', 'User'),
-        ('pharmacy', 'Pharmacy'),
-        ('admin', 'Admin'),
-    ]
-
-    role = forms.ChoiceField(
-        label='Log in as',
-        choices=ROLE_CHOICES,
-        initial='user',
-        widget=forms.Select(attrs={'class': 'form-input'}),
-    )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
@@ -34,9 +22,15 @@ class LoginForm(forms.Form):
 
     account = None  # filled in by clean() when the credentials are valid
 
+    def __init__(self, *args, role='user', **kwargs):
+        # The role is decided by WHICH login page is used (/, /pharmacy-portal/login/,
+        # /manage/login/), not by a dropdown the visitor can change.
+        super().__init__(*args, **kwargs)
+        self.role = role
+
     def clean(self):
         cleaned = super().clean()
-        role = cleaned.get('role')
+        role = self.role
         email = cleaned.get('email')
         password = cleaned.get('password')
 
@@ -44,7 +38,7 @@ class LoginForm(forms.Form):
             account = get_account_model(role).objects.filter(email__iexact=email.strip()).first()
             if account is None or not account.check_password(password):
                 raise forms.ValidationError(
-                    'Invalid email or password for the selected account type.'
+                    'Invalid email or password.'
                 )
             if role == 'pharmacy' and not account.is_active:
                 raise forms.ValidationError('This pharmacy account has been deactivated.')

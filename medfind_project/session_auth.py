@@ -23,6 +23,13 @@ ROLE_HOME = {
     'admin': 'admin_dashboard',
 }
 
+# each role has its OWN login page (URL names)
+ROLE_LOGIN = {
+    'user': 'login',                 # /
+    'pharmacy': 'pharmacy_login',    # /pharmacy-portal/login/
+    'admin': 'admin_login',          # /manage/login/
+}
+
 # role -> (app_label, model_name)
 ROLE_MODELS = {
     'user': ('home_app', 'User'),
@@ -80,9 +87,11 @@ def role_required(role):
             account = get_account(request)
             if account is None:
                 messages.info(request, 'Please log in to continue.')
-                return redirect('login')
+                # send them to the login page that belongs to the area they tried to open
+                return redirect(ROLE_LOGIN[role])
             current_role = request.session.get(SESSION_ROLE)
             if current_role != role:
+                # logged in, but as a different kind of account -> back to their own area
                 return redirect(ROLE_HOME[current_role])
             request.account = account
             return view(request, *args, **kwargs)

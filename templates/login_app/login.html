@@ -14,7 +14,7 @@
             <div class="tagline">Find your medicine. Find it fast.</div>
         </div>
 
-        <h1 class="form-title">Log in to your account</h1>
+        <h1 class="form-title">{{ page.heading }}</h1>
 
         {% if messages %}
         <ul class="messages">
@@ -26,11 +26,6 @@
 
         <form method="post" novalidate>
             {% csrf_token %}
-
-            <div class="form-group">
-                <label for="{{ form.role.id_for_label }}">Log in as</label>
-                {{ form.role }}
-            </div>
 
             <div class="form-group">
                 <label for="{{ form.email.id_for_label }}">Email</label>
@@ -61,10 +56,16 @@
             <button type="submit" class="btn-primary">Log In</button>
         </form>
 
+        <!-- {% if page.register_url %} -->
         <div class="switch-link">
-            Don't have an account? <a href="{% url 'register' %}">Register as a user</a>
-            or <a href="{% url 'register_pharmacy' %}">as a pharmacy</a>
+            {{ page.register_text }} <a href="{% url page.register_url %}">{{ page.register_label }}</a>
         </div>
+        <!--{% endif %}
+        {% if page.other_url %}
+        <div class="switch-link">
+            {{ page.other_text }} <a href="{% url page.other_url %}">{{ page.other_label }}</a>
+        </div>
+        {% endif %} -->
     </div>
 </body>
 </html>
