@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # MedFind apps — one Django app per area of the system
+    'landing_app',    # public landing page (no models)
     'login_app',      # login screen (no models)
     'register_app',   # registration screens + seed/admin commands (no models)
     'home_app',       # user home/search + User, Medicine_Category, Medicine, Favorite, Search_history

@@ -5,7 +5,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),                          # Django's built-in site (superuser)
-    path('', include('login_app.urls')),                      # login / logout
+    path('', include('landing_app.urls')),                    # landing page (/)
+    path('login/', include('login_app.urls')),                      # user login (/login/) + logout
     path('register/', include('register_app.urls')),          # user + pharmacy registration
     path('home/', include('home_app.urls')),                  # user-facing screens
     path('pharmacy-portal/', include('pharmacy_app.urls')),   # pharmacy dashboard

@@ -26,7 +26,7 @@ LOGIN_PAGES = {
         'register_url': 'register_pharmacy',
         'register_text': 'New pharmacy?',
         'register_label': 'Register your pharmacy',
-        'other_url': 'login',
+        'other_url': 'landing',
         'other_text': 'Just looking for medicine?',
         'other_label': 'Go to the main site',
     },
@@ -60,7 +60,7 @@ def _login(request, role):
 
 
 def login_view(request):
-    """General users  ->  /"""
+    """General users  ->  /login/"""
     return _login(request, 'user')
 
 

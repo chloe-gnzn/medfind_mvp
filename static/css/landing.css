@@ -1,0 +1,298 @@
+/* ==========================================================
+   MedFind landing page  (built from the Figma "landing-page" frame)
+   Images live in static/landing/  -- see the list at the bottom.
+   ========================================================== */
+:root {
+    --navy: #1B2764;
+    --nav-text: #1A234B;
+    --body-text: #264C64;
+    --plus: #7582BF;
+    --link: #212F68;
+    --hero-bg: #A0B6DE;
+    --edge: #EEF4F6;
+    --panel: #172B51;
+    --footer-bg: #CCD8EE;
+    --muted: #6A7282;
+    --heading-dark: #1E2939;
+    --display: 'Lalezar', 'Impact', sans-serif;
+    --sans: '42dot Sans', 'Segoe UI', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background: #fff;
+    color: var(--body-text);
+    font-family: var(--sans);
+    display: block;    
+    padding: 0;
+}
+h1, h2, h3, h4, p, ol { margin: 0; }
+a { text-decoration: none; color: inherit; }
+section[id], .lp-anchor { scroll-margin-top: 100px; }
+.lp-anchor { display: flow-root; }   
+/* navbar */
+.lp-nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 28px;
+    max-width: 1280px; margin: 0 auto;
+    padding: 14px 40px;
+    background: #fff;
+}
+.lp-logo {
+    font-family: var(--display);
+    font-size: 50px; line-height: 1; color: var(--navy);
+    display: inline-flex; align-items: flex-start;
+}
+.lp-logo span { font-size: 70px; line-height: .8; color: var(--plus); margin-left: 2px; }
+.lp-links { display: flex; gap: clamp(20px, 3.4vw, 44px); margin-left: clamp(20px, 5vw, 70px); }
+.lp-links a {
+    font-size: clamp(16px, 2.3vw, 30px); font-weight: 600; color: var(--nav-text);
+}
+.lp-links a:hover { text-decoration: underline; }
+.lp-auth { margin-left: auto; display: flex; align-items: center; gap: clamp(16px, 2.6vw, 36px); }
+.lp-login {
+    font-size: clamp(16px, 2.3vw, 30px); font-weight: 600; color: var(--link);
+    text-decoration: underline;
+}
+.lp-cta {
+    font-size: clamp(16px, 2.3vw, 30px); font-weight: 600; color: #fff;
+    padding: clamp(10px, 0.8vw, 20px) clamp(20px, 1.5vw, 36px);
+    background: linear-gradient(180deg, #172B51 0%, #7689AC 100%);
+    border: 3px solid var(--edge); border-radius: 44px;
+    box-shadow: 5px 5px 8.8px rgba(0,0,0,.25);
+    white-space: nowrap;
+}
+.lp-cta:hover { filter: brightness(1.12); }
+
+/* page wrapper */
+.lp-page { max-width: 1280px; margin: 0 auto; }
+
+/* hero */
+.lp-hero {
+    position: relative; overflow: hidden;
+    margin: 0 24px;
+    height: clamp(420px, 52vw, 638px);
+    background: var(--hero-bg);
+    border: 5px solid var(--edge); border-radius: 44px;
+    box-shadow: 10px 10px 14.4px rgba(0,0,0,.25) inset, -10px -10px 14.4px rgba(0,0,0,.25) inset;
+}
+.lp-art {
+    position: absolute;
+    left: 19%; top: -17%; width: 67%;
+    aspect-ratio: 831 / 972;
+    background-position: center; background-repeat: no-repeat; background-size: contain;
+}
+.lp-art-pills { background-image: url('../landing/hero-pills.png'); z-index: 1; }
+.lp-art-lens  { 
+    background-image: url('../landing/hero-magnifier.png'); z-index: 3; 
+    width: 100%;
+    left: 3%;
+    top: -40%;
+}
+.lp-hero-title {
+    position: absolute; z-index: 2;
+    left: 0; right: 0;
+    top: 4%;
+    text-align: center;
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(64px, 21vw, 270px); line-height: 1.15;
+    color: var(--navy);
+    text-shadow: 0 10px 4px rgba(33, 43, 135, .25);
+    -webkit-text-stroke: white 1px;
+}
+.lp-tagline {
+    position: absolute; z-index: 4;
+    left: 7%; top: 56%;
+    font-family: 'Laila', var(--sans); font-weight: 600;
+    font-size: clamp(12px, 1.6vw, 20px); line-height: 1.5;
+    color: var(--body-text);
+}
+
+/* ------------------------------------------------ about (white sheet over the hero) */
+.lp-sheet {
+    position: relative; z-index: 5;
+    margin-top: -52px;
+    padding: 70px clamp(24px, 4vw, 46px) 20px;
+    background: #fff; border-radius: 70px 70px 0 0;
+}
+.lp-row {
+    display: flex; align-items: center; gap: clamp(20px, 3vw, 40px);
+    margin-bottom: clamp(24px, 4vw, 48px);
+}
+.lp-row p {
+    flex: 1; font-size: clamp(16px, 2.3vw, 30px); line-height: 1.3;
+}
+.lp-row-flip p { text-align: right; }
+.lp-title {
+    flex: none; display: flex; flex-direction: column;
+    font-family: var(--display); font-weight: 400; color: var(--navy);
+    line-height: .9;
+}
+.lp-title-right { align-items: flex-end; text-align: right; }
+.lp-title .xl { font-size: clamp(64px, 11.7vw, 150px); }
+.lp-title .md { font-size: clamp(44px, 7.8vw, 100px); }
+
+.lp-note {
+    width: min(1126px, 100%); margin: clamp(10px, 3vw, 40px) auto 0;
+    padding: clamp(18px, 2.4vw, 30px) clamp(20px, 3vw, 35px);
+    background: #fff; border-radius: 17px;
+    box-shadow: 5px 5px 31.3px rgba(0,0,0,.25) inset, -5px -5px 31.3px rgba(0,0,0,.25) inset;
+    font-size: clamp(15px, 2.3vw, 30px); line-height: 1.3; color: var(--body-text);
+}
+
+/* ------------------------------------------------ features */
+.lp-features {
+    position: relative; overflow: hidden;
+    margin: clamp(40px, 6.5vw, 84px) 24px 0;
+    padding: clamp(24px, 3.5vw, 36px) clamp(20px, 3.5vw, 46px) clamp(40px, 8vw, 120px);
+    border-radius: 30px; min-height: 480px;
+    background:
+        linear-gradient(rgba(23,43,81,.78), rgba(23,43,81,.78)),
+        url('../landing/shelf-bg.jpg') center / cover no-repeat,
+        var(--panel);
+    box-shadow: 4px 4px 23.3px rgba(255,255,255,.66) inset, -4px -4px 23.3px rgba(255,255,255,.66) inset;
+}
+.lp-features h2 {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(48px, 7.8vw, 100px); line-height: 1.1; color: #D9DFFF;
+    margin-bottom: clamp(24px, 6vw, 80px);
+}
+.lp-cards {
+    display: grid; gap: 21px; justify-content: center;
+    grid-template-columns: repeat(4, minmax(0, 272px));
+}
+.lp-card {
+    position: relative; overflow: hidden;       /* clips the big masked icon to the card */
+    min-height: 361px;
+    padding: 66px 28px 28px;
+    border-radius: 20px; border: 3px solid;
+    background: var(--card-bg); border-color: var(--card-edge); color: var(--card-ink);
+    box-shadow: 4px 4px 23.3px var(--card-glow);
+}
+.lp-card h3 {
+    position: relative; z-index: 1;
+    font-size: clamp(24px, 2.7vw, 35px); font-weight: 800; line-height: 1.15; letter-spacing: .02em;
+}
+.lp-card p {
+    position: relative; z-index: 1; margin-top: 16px;
+    font-size: clamp(18px, 1.95vw, 25px); line-height: 1.15; letter-spacing: .02em;
+}
+
+/* The masking trick from Figma: the icon PNG is used as a MASK, and the
+   lighter tint colour is what shows through it, clipped by the card edge. */
+.lp-icon {
+    position: absolute; z-index: 0;
+    left: var(--ix); top: var(--iy); width: var(--iw); height: var(--ih);
+    background-color: var(--card-tint);
+    -webkit-mask: var(--icon) center / contain no-repeat;
+            mask: var(--icon) center / contain no-repeat;
+}
+.c1 {
+    --card-bg:#94A8C9; --card-edge:#34537C; --card-ink:#0D2736; --card-tint:#99B4D0; --card-glow:rgba(0,26,103,.68);
+    --icon:url('../landing/icon-search-doc.png');
+    --ix:-33.5%; --iy:-34%;  --iw:174%; --ih:170%;
+}
+.c2 {
+    --card-bg:#CC9091; --card-edge:#502222; --card-ink:#650D0E; --card-tint:#D49696; --card-glow:rgba(102,0,0,.68);
+    --icon:url('../landing/icon-boxes.png');
+    --ix:-41%;   --iy:-38.5%; --iw:190%; --ih:185%;
+}
+.c3 {
+    --card-bg:#DBD250; --card-edge:#4A4307; --card-ink:#4A4307; --card-tint:#E1DF86; --card-glow:rgba(75,80,4,.68);
+    --icon:url('../landing/icon-compare.png');
+    --ix:-31.5%; --iy:-32%;  --iw:163.5%; --ih:159%;
+}
+.c4 {
+    --card-bg:#8BB98D; --card-edge:#053913; --card-ink:#053913; --card-tint:#91CB9F; --card-glow:rgba(0,60,1,.68);
+    --icon:url('../landing/icon-megaphone.png');
+    --ix:-46%;   --iy:-47%;  --iw:200%; --ih:195%;
+}
+
+/* ------------------------------------------------ how it works */
+.lp-how {
+    margin: clamp(30px, 5vw, 64px) 24px 0;
+    padding: clamp(24px, 3.4vw, 40px) clamp(24px, 4.5vw, 58px) clamp(28px, 4vw, 50px);
+    background: #fff; border-radius: 32px;
+    box-shadow: 4px 4px 23.3px rgba(0,0,0,.25) inset, -4px -4px 23.3px rgba(0,0,0,.25) inset;
+    color: var(--navy);
+}
+.lp-how h2 {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(48px, 7.8vw, 100px); line-height: 1.1; margin-bottom: 12px;
+}
+.lp-how ol { padding-left: 1.4em; }
+.lp-how li {
+    font-size: clamp(17px, 3.1vw, 40px); line-height: 1.15; letter-spacing: .02em;
+    margin-bottom: clamp(10px, 2.6vw, 34px);
+    padding-left: 6px;
+}
+.lp-how li::marker { font-weight: 700; }
+.lp-how strong { font-weight: 700; }
+
+/* ------------------------------------------------ footer */
+.lp-footer {
+    margin-top: clamp(50px, 9vw, 120px);
+    background: var(--footer-bg);
+    padding: clamp(40px, 5vw, 60px) 0 30px;
+}
+.lp-foot-grid {
+    max-width: 1280px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 82px);
+    display: grid; gap: 40px;
+    grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+.lp-foot-brand p {
+    margin-top: 6px; max-width: 514px;
+    font-size: 20px; line-height: 1.15; letter-spacing: .02em; color: var(--navy);
+}
+.lp-footer .lp-logo { font-size: 50px; }
+.lp-foot-col { display: flex; flex-direction: column; gap: 14px; }
+.lp-foot-col h4 {
+    font-family: 'Inter', var(--sans); font-weight: 700; font-size: 18px;
+    text-transform: uppercase; letter-spacing: .03em; color: var(--heading-dark);
+    margin-bottom: 4px;
+}
+.lp-foot-col h4.gap { margin-top: 22px; }
+.lp-foot-col a { font-size: 15px; letter-spacing: .02em; color: var(--muted); }
+.lp-foot-col a:hover { color: var(--navy); text-decoration: underline; }
+.lp-copy {
+    max-width: 1280px; margin: 40px auto 0; padding: 0 clamp(24px, 6vw, 82px);
+    font-family: 'Inter', var(--sans); font-size: 15px; color: var(--navy);
+}
+
+/* ------------------------------------------------ responsive */
+@media (max-width: 1000px) {
+    .lp-cards { grid-template-columns: repeat(2, minmax(0, 272px)); }
+    /* keep Home / About / Features reachable on small screens: wrap them under the logo row */
+    .lp-nav { flex-wrap: wrap; row-gap: 6px; }
+    .lp-links { order: 3; width: 100%; justify-content: center; margin-left: 0; gap: 28px; }
+    section[id], .lp-anchor { scroll-margin-top: 140px; }
+}
+@media (max-width: 760px) {
+    .lp-nav { padding: 12px 20px; }
+    .lp-logo { font-size: 38px; }
+    .lp-logo span { font-size: 52px; }
+    .lp-row, .lp-row-flip { flex-direction: column; align-items: flex-start; }
+    .lp-row-flip { flex-direction: column-reverse; }
+    .lp-row-flip p { text-align: left; }
+    .lp-title-right { align-items: flex-start; text-align: left; }
+    .lp-foot-grid { grid-template-columns: 1fr 1fr; }
+    .lp-foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+    .lp-cards { grid-template-columns: minmax(0, 272px); }
+    .lp-sheet { border-radius: 40px 40px 0 0; padding-top: 50px; }
+}
+
+/* ==========================================================
+   IMAGE FILES expected in static/landing/  (export from Figma)
+     hero-pills.png        <- "image 7"  (capsule + pills)
+     hero-magnifier.png    <- "image 2"  (magnifying glass)
+     shelf-bg.jpg          <- "image 8"  (pharmacy shelf photo)
+     icon-search-doc.png   <- "image 3"  (document + magnifier)
+     icon-boxes.png        <- "image 4"  (boxes with check)
+     icon-compare.png      <- "image 5"  (two arrows)
+     icon-megaphone.png    <- "image 6"  (megaphone)
+   The four icon PNGs MUST have a transparent background.
+   ========================================================== */

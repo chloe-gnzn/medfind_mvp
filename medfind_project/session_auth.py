@@ -1,11 +1,3 @@
-"""
-Session-based authentication for MedFind's three account types.
-
-The ERD defines three separate account tables -- User, Pharmacy and Admin --
-each with its own email + password_hash. Instead of Django's built-in
-auth.User, we store a role + primary key in the session and look the
-account up in the matching table.
-"""
 from functools import wraps
 
 from django.apps import apps

@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MedFind | Find your medicine. Find your pharmacy.</title>
+    <meta name="description" content="MedFind helps you find which verified pharmacies have the medicine you need, so you can compare prices and hours before you go.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=42dot+Sans:wght@400;600;700;800&family=Inter:wght@400;700&family=Laila:wght@600&family=Lalezar&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+
+<!-- ============================ NAVBAR ============================ -->
+<header class="lp-nav">
+    <a class="lp-logo" href="#top" aria-label="MedFind home">MedFind<span>+</span></a>
+    <nav class="lp-links" aria-label="Page sections">
+        <a href="#top">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+    </nav>
+    <div class="lp-auth">
+        <a class="lp-login" href="{% url 'login' %}">Log In</a>
+        <a class="lp-cta" href="{% url 'register' %}">Get Started</a>
+    </div>
+</header>
+
+<div class="lp-page">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="lp-hero" id="top">
+        <div class="lp-art lp-art-pills" aria-hidden="true"></div>
+        <h1 class="lp-hero-title">MedFind</h1>
+        <div class="lp-art lp-art-lens" aria-hidden="true"></div>
+        <p class="lp-tagline">Find Your Medicine.<br>Find Your Pharmacy.</p>
+    </section>
+
+    <!-- ============================ ABOUT ============================ -->
+    <section class="lp-sheet" id="about">
+        <div class="lp-row">
+            <h2 class="lp-title"><span class="xl">About</span></h2>
+            <p>MedFind is a web platform that connects people with pharmacies. Search for a medicine by brand or generic name, see which verified pharmacies carry it, compare prices, check stock status, and see whether the pharmacy is open before you leave home.</p>
+        </div>
+
+        <div class="lp-row lp-row-flip">
+            <p>Search for a medicine, see which verified pharmacies have it in stock, and compare prices and hours. Pharmacies update their own inventory, and every one is reviewed by an admin before it appears.</p>
+            <h2 class="lp-title lp-title-right"><span class="xl">What</span><span class="md">It Does</span></h2>
+        </div>
+
+        <div class="lp-row">
+            <h2 class="lp-title"><span class="xl">Its</span><span class="md">Purpose</span></h2>
+            <p>MedFind aims to make that search quick and reliable by putting pharmacy availability in one place, while helping local pharmacies reach more customers.</p>
+        </div>
+
+        <aside class="lp-note">
+            <strong>Note:</strong> MedFind shows medicine availability only and does not provide medical advice. Always consult a licensed pharmacist or doctor, and note that prescription medicines require a prescription.
+        </aside>
+    </section>
+
+    <!-- ============ FEATURES + HOW IT WORKS (nav "Features" scrolls here) ============ -->
+    <div id="features" class="lp-anchor">
+
+    <section class="lp-features">
+        <h2>Features</h2>
+        <div class="lp-cards">
+            <article class="lp-card c1">
+                <span class="lp-icon" aria-hidden="true"></span>
+                <h3>Search<br>medicines</h3>
+                <p>Look up any medicine by brand or generic name.</p>
+            </article>
+            <article class="lp-card c2">
+                <span class="lp-icon" aria-hidden="true"></span>
+                <h3>Check availability</h3>
+                <p>See what's in stock, low on stock, or out of stock.</p>
+            </article>
+            <article class="lp-card c3">
+                <span class="lp-icon" aria-hidden="true"></span>
+                <h3>Compare prices</h3>
+                <p>Find the best price across nearby pharmacies.</p>
+            </article>
+            <article class="lp-card c4">
+                <span class="lp-icon" aria-hidden="true"></span>
+                <h3>Open<br>now</h3>
+                <p>Check pharmacy hours before you go.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ============================ HOW IT WORKS ============================ -->
+    <section class="lp-how" id="how-it-works">
+        <h2>How It Works</h2>
+        <ol>
+            <li><strong>Search</strong> type the medicine you need.</li>
+            <li><strong>Compare</strong> and see which verified pharmacies have the medicine you’re looking for, the price, and whether they're open now.</li>
+            <li><strong>Go</strong> visit the pharmacy, and save favorites for next time.</li>
+        </ol>
+    </section>
+
+    </div><!-- /#features -->
+</div>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="lp-footer">
+    <div class="lp-foot-grid">
+        <div class="lp-foot-brand">
+            <a class="lp-logo" href="#top">MedFind<span>+</span></a>
+            <p>The all-in-one medicine finder connecting customers and verified pharmacies for faster, easier access to the medicine you need.</p>
+        </div>
+
+        <div class="lp-foot-col">
+            <h4>Product</h4>
+            <a href="#how-it-works">How it works</a>
+            <a href="#features">Features</a>
+            <a href="{% url 'login' %}">Browse medicines</a>
+            <a href="{% url 'login' %}">Log in</a>
+            <a href="{% url 'register' %}">Sign up</a>
+
+            <h4 class="gap">Legal</h4>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Security</a>
+        </div>
+
+        <div class="lp-foot-col">
+            <h4>Company</h4>
+            <a href="#about">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy policy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+    <p class="lp-copy">© 2026 Ambera. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

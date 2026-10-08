@@ -56,16 +56,16 @@
             <button type="submit" class="btn-primary">Log In</button>
         </form>
 
-        <!-- {% if page.register_url %} -->
+        {% if page.register_url %}
         <div class="switch-link">
             {{ page.register_text }} <a href="{% url page.register_url %}">{{ page.register_label }}</a>
         </div>
-        <!--{% endif %}
+        {% endif %}
         {% if page.other_url %}
         <div class="switch-link">
             {{ page.other_text }} <a href="{% url page.other_url %}">{{ page.other_label }}</a>
         </div>
-        {% endif %} -->
+        {% endif %}
     </div>
 </body>
 </html>

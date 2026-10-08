@@ -27,7 +27,7 @@ def dashboard_view(request):
     return render(request, 'pharmacy_app/dashboard.html', context)
 
 
-# ---------------------------------------------------------------- Inventory
+#Inventory
 
 @role_required('pharmacy')
 def inventory_list_view(request):
@@ -81,7 +81,7 @@ def inventory_delete_view(request, inventory_id):
     return redirect('pharmacy_inventory')
 
 
-# ---------------------------------------------------------- Operating hours
+#Operating hours
 
 def _hours_rows(pharmacy):
     existing = {h.days_of_week: h for h in OperatingHours.objects.filter(pharmacy=pharmacy)}
@@ -140,7 +140,7 @@ def hours_view(request):
     return render(request, 'pharmacy_app/hours.html', {'rows': rows})
 
 
-# ------------------------------------------------------------ Verification
+#Verification
 
 @role_required('pharmacy')
 def verification_view(request):
